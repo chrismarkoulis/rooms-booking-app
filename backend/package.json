@@ -1,0 +1,32 @@
+{
+  "name": "rooms-booking-app",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Rooms booking app with express.js backend & android client",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chrismarkoulis/rooms-booking-app.git"
+  },
+  "author": "chrismarkoulis",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chrismarkoulis/rooms-booking-app/issues"
+  },
+  "homepage": "https://github.com/chrismarkoulis/rooms-booking-app#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-async-handler": "^1.2.0",
+    "jsonwebtoken": "^9.0.1",
+    "mongoose": "^7.4.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
