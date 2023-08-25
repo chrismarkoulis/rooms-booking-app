@@ -1,18 +1,14 @@
-package com.example.roomsbooking.activities;
+package com.example.rentaroom;
 
-import android.content.Intent;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.roomsbooking.R;
-import com.example.roomsbooking.api.RetrofitClient;
+import com.example.rentaroom.api.RetrofitClient;
 
 import java.io.IOException;
 
@@ -26,8 +22,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private EditText editTextEmail, editTextPassword, editTextName;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         editTextEmail = findViewById(R.id.editTextEmail);
@@ -73,12 +69,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return;
         }
 
-
         Call<ResponseBody> call = RetrofitClient
                 .getInstance()
                 .getApi()
                 .createUser(email, password, name);
-
 
         call.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -104,16 +98,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             }
         });
-
-
     }
 
     @Override
-    public void onClick(View view) {
-        int id = view.getId();
+    public void onClick(View v) {
+        int id = v.getId();
         if (id == R.id.buttonSignUp) {
             userSignUp();
-        } else if (id == R.id.textViewLogin) {//startActivity(new Intent(this, LoginActivity.class));
+        } else if (id == R.id.textViewLogin) {
+            // startActivity
         }
     }
 }

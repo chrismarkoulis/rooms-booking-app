@@ -1,4 +1,4 @@
-package com.example.roomsbooking;
+package com.example.rentaroom;
 
 import org.junit.Test;
 

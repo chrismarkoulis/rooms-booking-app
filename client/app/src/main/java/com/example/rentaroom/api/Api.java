@@ -1,4 +1,4 @@
-package com.example.roomsbooking.api;
+package com.example.rentaroom.api;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;

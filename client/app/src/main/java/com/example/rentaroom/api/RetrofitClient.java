@@ -1,10 +1,10 @@
-package com.example.roomsbooking.api;
+package com.example.rentaroom.api;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
-    private static final String BASE_URL = "http://192.168.1.106:5000/api/";
+    private static final String BASE_URL = "http://192.168.1.103:5000/api/";
     private static RetrofitClient mInstance;
     private Retrofit retrofit;
 
