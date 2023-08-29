@@ -5,17 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryBackground"
-    tools:context=".MainActivity">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/linearLayout"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="100dp"
-        android:text="Welcome to Rooms Rental"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
-        android:textColor="@color/colorFormBackground" />
+    tools:context=".activities.LoginActivity">
 
     <TextView
         android:layout_width="wrap_content"
@@ -23,7 +13,7 @@
         android:layout_above="@id/linearLayout"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="30dp"
-        android:text="Sign Up"
+        android:text="Login"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
         android:textColor="@color/colorFormBackground" />
 
@@ -37,15 +27,6 @@
         android:background="@color/colorFormBackground"
         android:orientation="vertical"
         android:padding="10dp">
-
-        <EditText
-            android:id="@+id/editTextName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_name"
-            android:drawablePadding="5dp"
-            android:hint="name"
-            android:inputType="textPersonName" />
 
         <EditText
             android:id="@+id/editTextEmail"
@@ -65,30 +46,31 @@
             android:hint="password"
             android:inputType="textPassword" />
 
+
     </LinearLayout>
 
     <TextView
-        android:id="@+id/textViewLogin"
+        android:id="@+id/textViewRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/linearLayout"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="35dp"
-        android:lineSpacingExtra="10dp"
-        android:text="Already have an Account?\nClick to Login"
+        android:layout_marginTop="15dp"
+        android:lineSpacingExtra="7dp"
+        android:text="Don't have an Account?\nClick to Register"
         android:textAlignment="center"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
         android:textColor="@color/colorFormBackground" />
 
     <Button
-        android:id="@+id/buttonSignUp"
+        android:id="@+id/buttonLogin"
         android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="100dp"
+        android:text="Login"
         android:background="@drawable/button_background"
-        android:text="Sign Up"
         android:textAllCaps="false"
         android:textColor="@color/colorFormBackground" />
 

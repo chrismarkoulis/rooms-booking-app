@@ -1,5 +1,7 @@
 package com.example.rentaroom.api;
 
+import com.example.rentaroom.models.LoginResponse;
+
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -13,5 +15,12 @@ public interface Api {
             @Field("email") String email,
             @Field("password") String password,
             @Field("name") String name
+    );
+
+    @FormUrlEncoded
+    @POST("users")
+    Call<LoginResponse> userLogin(
+            @Field("email") String email,
+            @Field("password") String password
     );
 }
