@@ -2,6 +2,7 @@ package com.example.rentaroom;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.Toast;
 
 import com.example.rentaroom.api.RetrofitClient;
 import com.example.rentaroom.models.DefaultResponse;
+import com.example.rentaroom.utils.Utils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,21 +26,6 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private EditText editTextEmail, editTextPassword, editTextName;
-    private String json (String target, String prop) {
-        JSONObject jsonObject;
-        String value;
-        try {
-            jsonObject = new JSONObject(target);
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
-        }
-        try {
-            value = jsonObject.getString(prop);
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
-        }
-        return value;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,10 +87,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 try {
                     if (response.code() == 201) {
                         s = response.body().toString();
+
                         Toast.makeText(MainActivity.this, "User created successfully", Toast.LENGTH_LONG).show();
                     } else {
                         s = response.errorBody().string();
-                        Toast.makeText(MainActivity.this, json(s, "message"), Toast.LENGTH_LONG).show();
+                        Toast.makeText(MainActivity.this, Utils.json(s, "message"), Toast.LENGTH_LONG).show();
                     }
                 } catch (IOException e) {
                     throw new RuntimeException(e);
@@ -112,9 +100,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-
                 Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
-
             }
         });
     }
@@ -125,7 +111,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (id == R.id.buttonSignUp) {
             userSignUp();
         } else if (id == R.id.textViewLogin) {
-            // startActivity
+            startActivity(new Intent(this, LoginActivity.class));
         }
     }
 }

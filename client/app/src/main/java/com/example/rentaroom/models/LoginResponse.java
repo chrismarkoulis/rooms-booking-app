@@ -1,8 +1,8 @@
 package com.example.rentaroom.models;
 
 public class LoginResponse {
-    private String message;
-    private User user;
+    private final String message;
+    private final User user;
 
     public LoginResponse(String message, User user) {
         this.message = message;

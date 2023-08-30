@@ -2,13 +2,18 @@ package com.example.rentaroom;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.rentaroom.api.RetrofitClient;
 import com.example.rentaroom.models.LoginResponse;
+import com.example.rentaroom.utils.Utils;
+
+import java.io.IOException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -66,12 +71,24 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         call.enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-                LoginResponse loginResponse = response.body();
+                String s = null;
+                try {
+                    if (response.code() == 200) {
+                        s = response.body().toString();
+                        Toast.makeText(LoginActivity.this, "Logged in successfully", Toast.LENGTH_LONG).show();
+                    } else {
+                        s = response.errorBody().string();
+                        Toast.makeText(LoginActivity.this, Utils.json(s, "message"), Toast.LENGTH_LONG).show();
+                    }
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
             }
 
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
-
+                Toast.makeText(LoginActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
 
@@ -79,6 +96,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-
+        int id = v.getId();
+        if (id == R.id.buttonLogin) {
+            userLogin();
+        } else if (id == R.id.textViewRegister) {
+            startActivity(new Intent(this, MainActivity.class));
+        }
     }
 }

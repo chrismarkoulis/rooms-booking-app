@@ -18,7 +18,7 @@ public interface Api {
     );
 
     @FormUrlEncoded
-    @POST("users")
+    @POST("users/auth")
     Call<LoginResponse> userLogin(
             @Field("email") String email,
             @Field("password") String password
