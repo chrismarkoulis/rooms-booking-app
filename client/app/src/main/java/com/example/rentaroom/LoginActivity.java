@@ -4,13 +4,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.rentaroom.api.RetrofitClient;
-import com.example.rentaroom.models.LoginResponse;
+import com.example.rentaroom.models.User;
+import com.example.rentaroom.store.StoreManager;
 import com.example.rentaroom.utils.Utils;
 
 import java.io.IOException;
@@ -34,6 +36,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         findViewById(R.id.buttonLogin).setOnClickListener(this);
         findViewById(R.id.textViewRegister).setOnClickListener(this);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        if (StoreManager.getInstance(this).isLoggedIn()) {
+            Intent intent = new Intent(this, ProfileActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        }
     }
 
     private void userLogin() {
@@ -65,20 +78,34 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             return;
         }
 
-        Call<LoginResponse> call = RetrofitClient
+        Call<User> call = RetrofitClient
                 .getInstance().getApi().userLogin(email, password);
 
-        call.enqueue(new Callback<LoginResponse>() {
+        call.enqueue(new Callback<User>() {
             @Override
-            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-                String s = null;
+            public void onResponse(Call<User> call, Response<User> response) {
                 try {
                     if (response.code() == 200) {
-                        s = response.body().toString();
-                        Toast.makeText(LoginActivity.this, "Logged in successfully", Toast.LENGTH_LONG).show();
+                        if (response.body() != null) {
+                            User userRes = response.body();
+                            String id = userRes.getId();
+                            String name = userRes.getName();
+                            String email = userRes.getEmail();
+                            boolean isAdmin = userRes.isAdmin();
+                            User user = new User(id, name, email, isAdmin);
+                            Toast.makeText(LoginActivity.this, user.toString(), Toast.LENGTH_LONG).show();
+                            Log.d("~~ USER ~~", user.toString());
+                            StoreManager.getInstance(LoginActivity.this)
+                                    .saveUser(user);
+                            Intent intent = new Intent(LoginActivity.this, ProfileActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(LoginActivity.this, "Something went wrong", Toast.LENGTH_LONG).show();
+                        }
                     } else {
-                        s = response.errorBody().string();
-                        Toast.makeText(LoginActivity.this, Utils.json(s, "message"), Toast.LENGTH_LONG).show();
+                        String s = response.errorBody().string();
+                        Toast.makeText(LoginActivity.this, Utils.s_json(s, "message"), Toast.LENGTH_LONG).show();
                     }
                 } catch (IOException e) {
                     throw new RuntimeException(e);
@@ -87,7 +114,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
 
             @Override
-            public void onFailure(Call<LoginResponse> call, Throwable t) {
+            public void onFailure(Call<User> call, Throwable t) {
                 Toast.makeText(LoginActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });

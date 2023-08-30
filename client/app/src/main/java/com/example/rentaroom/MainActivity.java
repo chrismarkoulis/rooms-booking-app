@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 
 import com.example.rentaroom.api.RetrofitClient;
 import com.example.rentaroom.models.DefaultResponse;
+import com.example.rentaroom.store.StoreManager;
 import com.example.rentaroom.utils.Utils;
 
 import org.json.JSONException;
@@ -38,6 +40,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         findViewById(R.id.buttonSignUp).setOnClickListener(this);
         findViewById(R.id.textViewLogin).setOnClickListener(this);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(StoreManager.getInstance(this).isLoggedIn()){
+            Intent intent = new Intent(this, ProfileActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        }
     }
 
     private void userSignUp() {
@@ -87,11 +99,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 try {
                     if (response.code() == 201) {
                         s = response.body().toString();
-
+                        Log.d("~~ USER ~~", s);
                         Toast.makeText(MainActivity.this, "User created successfully", Toast.LENGTH_LONG).show();
                     } else {
                         s = response.errorBody().string();
-                        Toast.makeText(MainActivity.this, Utils.json(s, "message"), Toast.LENGTH_LONG).show();
+                        Toast.makeText(MainActivity.this, Utils.s_json(s, "message"), Toast.LENGTH_LONG).show();
                     }
                 } catch (IOException e) {
                     throw new RuntimeException(e);

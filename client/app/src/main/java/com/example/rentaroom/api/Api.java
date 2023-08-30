@@ -1,6 +1,6 @@
 package com.example.rentaroom.api;
 
-import com.example.rentaroom.models.LoginResponse;
+import com.example.rentaroom.models.User;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -19,7 +19,7 @@ public interface Api {
 
     @FormUrlEncoded
     @POST("users/auth")
-    Call<LoginResponse> userLogin(
+    Call<User> userLogin(
             @Field("email") String email,
             @Field("password") String password
     );
