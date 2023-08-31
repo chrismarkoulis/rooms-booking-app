@@ -93,7 +93,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             String email = userRes.getEmail();
                             boolean isAdmin = userRes.isAdmin();
                             User user = new User(id, name, email, isAdmin);
-                            Toast.makeText(LoginActivity.this, user.toString(), Toast.LENGTH_LONG).show();
                             Log.d("~~ USER ~~", user.toString());
                             StoreManager.getInstance(LoginActivity.this)
                                     .saveUser(user);
