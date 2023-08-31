@@ -29,15 +29,15 @@ const roomSchema = mongoose.Schema(
         },
         image: {
             type: String,
-            required: true,
+            required: false,
         },
         location: {
             type: String,
-            required: true,
+            required: false,
         },
         capacity: {
             type: Number,
-            required: true,
+            required: false,
             default: 2,
         },
         description: {
@@ -46,13 +46,13 @@ const roomSchema = mongoose.Schema(
         },
         rating: {
             type: Number,
-            required: true,
+            required: false,
             default: 0,
         },
         reviews: [reviewSchema],
         numReviews: {
             type: Number,
-            required: true,
+            required: false,
             default: 0,
         },
         price: {
@@ -62,11 +62,11 @@ const roomSchema = mongoose.Schema(
         },
         start: {
             type: Date,
-            required: true,
+            required: false,
         },
         end: {
             type: Date,
-            required: true,
+            required: false,
         },
         facilities: [String],
         amenities: [String],

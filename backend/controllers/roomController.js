@@ -47,20 +47,29 @@ const getRoomById = asyncHandler(async (req, res) => {
 // @route   POST /api/rooms
 // @access  Private/Admin
 const createRoom = asyncHandler(async (req, res) => {
-  const room = new Room({
-    name: 'Sample name',
-    price: 0,
+  // const room = new Room({
+  //   name: 'Sample name',
+  //   price: 0,
+  //   user: req.user._id,
+  //   image: 'https://via.placeholder.com/600/24f355',
+  //   location: 'Athens, Greece',
+  //   capacity: 2,
+  //   numReviews: 0,
+  //   rating: 0,
+  //   description: 'Sample description',
+  //   start: new Date(),
+  //   end: new Date(),
+  //   facilities: ["Bedroom", "Kitchen", "Bathroom"],
+  //   amenities: ["WiFi", "Breakfast", "Kitchen Equipment"]
+  // });
+  const { name, location, description, price } = req.body;
+
+  const room = await Room.create({
     user: req.user._id,
-    image: 'https://via.placeholder.com/600/24f355',
-    location: 'Athens, Greece',
-    capacity: 2,
-    numReviews: 0,
-    rating: 0,
-    description: 'Sample description',
-    start: new Date(),
-    end: new Date(),
-    facilities: ["Bedroom", "Kitchen", "Bathroom"],
-    amenities: ["WiFi", "Breakfast", "Kitchen Equipment"]
+    name,
+    location,
+    description,
+    price
   });
 
   const createdRoom = await room.save();
