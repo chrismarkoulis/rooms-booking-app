@@ -30,4 +30,14 @@ public interface Api {
 
     @GET("rooms")
     Call<RoomsResponse> getRooms();
+
+    @FormUrlEncoded
+    @POST("rooms")
+    Call<ResponseBody> createRoom(
+            @Field("name") String name,
+            @Field("location") String location,
+            @Field("description") String description,
+            @Field("price") int price
+
+    );
 }

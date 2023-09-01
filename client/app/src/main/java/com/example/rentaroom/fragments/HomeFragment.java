@@ -14,7 +14,7 @@ import androidx.fragment.app.Fragment;
 import com.example.rentaroom.R;
 import com.example.rentaroom.store.StoreManager;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements View.OnClickListener {
 
     private TextView textViewName, textViewEmail, textViewIsAdmin, textViewInfo;
     private Button addRoomButton;
@@ -36,10 +36,30 @@ public class HomeFragment extends Fragment {
         textViewInfo = view.findViewById(R.id.textViewInfo);
         addRoomButton = view.findViewById(R.id.addRoomButton);
 
+        view.findViewById(R.id.addRoomButton).setOnClickListener(this);
+
         textViewName.setText(String.format("Welcome %s", StoreManager.getInstance(getActivity()).getUser().getName()));
         textViewEmail.setText(StoreManager.getInstance(getActivity()).getUser().getEmail());
         textViewIsAdmin.setText(isAdmin ? "Roomer" : "Guest");
         textViewInfo.setText(isAdmin ? "You have no rooms yet." : "Feel free to browse our available rooms!");
         addRoomButton.setVisibility(isAdmin ? View.VISIBLE : View.INVISIBLE);
+    }
+
+    private void displayFragment(Fragment fragment) {
+                 getParentFragmentManager()
+                .beginTransaction()
+                .replace(R.id.relativeLayoutContainer, fragment)
+                .addToBackStack(null)
+                .commit();
+    }
+
+    @Override
+    public void onClick(View v) {
+       int id = v.getId();
+
+       if (id == R.id.addRoomButton) {
+           displayFragment(new AddRoomFragment());
+       }
+
     }
 }
