@@ -64,6 +64,13 @@ const createRoom = asyncHandler(async (req, res) => {
   // });
   const { name, location, description, price } = req.body;
 
+  const roomExists = await Room.findOne({ name });
+  
+    if (roomExists) {
+      res.status(400);
+      throw new Error('Room already exists');
+    }
+
   const room = await Room.create({
     user: req.user._id,
     name,

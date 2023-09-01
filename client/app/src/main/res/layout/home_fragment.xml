@@ -67,4 +67,18 @@
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
         android:textColor="@color/colorPrimaryBackground" />
 
+    <Button
+        android:id="@+id/addRoomButton"
+        android:visibility="invisible"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="150dp"
+        android:drawableLeft="@drawable/ic_add_room"
+        android:background="@drawable/button_background"
+        android:text="Add room"
+        android:textAllCaps="false"
+        android:textColor="@color/colorFormBackground" />
+
 </RelativeLayout>

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,6 +17,7 @@ import com.example.rentaroom.store.StoreManager;
 public class HomeFragment extends Fragment {
 
     private TextView textViewName, textViewEmail, textViewIsAdmin, textViewInfo;
+    private Button addRoomButton;
 
     @Nullable
     @Override
@@ -32,10 +34,12 @@ public class HomeFragment extends Fragment {
         textViewEmail = view.findViewById(R.id.textViewEmail);
         textViewIsAdmin = view.findViewById(R.id.textViewIsAdmin);
         textViewInfo = view.findViewById(R.id.textViewInfo);
+        addRoomButton = view.findViewById(R.id.addRoomButton);
 
         textViewName.setText(String.format("Welcome %s", StoreManager.getInstance(getActivity()).getUser().getName()));
         textViewEmail.setText(StoreManager.getInstance(getActivity()).getUser().getEmail());
         textViewIsAdmin.setText(isAdmin ? "Roomer" : "Guest");
         textViewInfo.setText(isAdmin ? "You have no rooms yet." : "Feel free to browse our available rooms!");
+        addRoomButton.setVisibility(isAdmin ? View.VISIBLE : View.INVISIBLE);
     }
 }

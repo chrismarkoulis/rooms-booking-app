@@ -17,7 +17,8 @@ public interface Api {
     Call<ResponseBody> createUser(
             @Field("email") String email,
             @Field("password") String password,
-            @Field("name") String name
+            @Field("name") String name,
+            @Field("isAdmin") boolean isAdmin
     );
 
     @FormUrlEncoded

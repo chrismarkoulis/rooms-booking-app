@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">rentaroom</string>
+    <string name="Role">*Only a Roomer can create available rooms</string>
+
+    <string-array name="dropDownItems">
+        <item>Guest</item>
+        <item>Roomer</item>
+    </string-array>
 </resources>
