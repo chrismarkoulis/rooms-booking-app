@@ -95,7 +95,6 @@
                    android:layout_width="160dp"
                    android:layout_height="wrap_content"
                    android:drawSelectorOnTop="true"
-                   android:prompt="@string/Role"
                    android:entries="@array/dropDownItems"
                    />
 

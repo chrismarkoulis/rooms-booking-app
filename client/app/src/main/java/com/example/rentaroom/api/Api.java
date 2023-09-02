@@ -11,6 +11,8 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Path;
 
 public interface Api {
     @FormUrlEncoded
@@ -27,6 +29,15 @@ public interface Api {
     Call<User> userLogin(
             @Field("email") String email,
             @Field("password") String password
+    );
+
+    @FormUrlEncoded
+    @PUT("users/{id}")
+    Call<User> updateUser(
+            @Path("id") int id,
+            @Field("name") String name,
+            @Field("email") String email,
+            @Field("isAdmin") boolean isAdmin
     );
 
     @GET("rooms")

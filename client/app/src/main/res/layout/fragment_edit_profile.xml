@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragments.AddRoomFragment">
+    tools:context=".fragments.EditProfileFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,7 +26,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add a new Room"
+            android:text="Edit your Profile"
             android:layout_marginLeft="60dp"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
             android:textColor="@color/colorAccent" />
@@ -49,44 +49,61 @@
             android:id="@+id/editTextName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_title"
+            android:drawableLeft="@drawable/ic_name"
             android:drawablePadding="5dp"
             android:layout_marginBottom="10dp"
-            android:hint="name / title"
+            android:hint="name"
             android:inputType="textPersonName" />
 
         <EditText
-            android:id="@+id/editTextLocation"
+            android:id="@+id/editTextEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_location"
+            android:drawableLeft="@drawable/ic_email"
             android:drawablePadding="5dp"
             android:layout_marginBottom="10dp"
-            android:hint="location" />
 
-        <EditText
-            android:id="@+id/editTextDescription"
+            android:hint="email"
+            android:inputType="textEmailAddress" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="6dp"
+            android:layout_marginBottom="7dp"
+            android:textColor="@color/colorPrimaryBackground"
+            android:text="Choose your role"/>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_description"
-            android:drawablePadding="5dp"
-            android:layout_marginBottom="10dp"
-            android:hint="description" />
 
-        <EditText
-            android:id="@+id/editTextPrice"
-            android:inputType="number"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_payment"
-            android:hint="price"
-            android:drawablePadding="5dp" />
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_marginLeft="4dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_role"
+                />
+
+            <Spinner
+                android:id="@+id/roleDropdown"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:drawSelectorOnTop="true"
+                android:entries="@array/dropDownItems"
+                />
+
+        </LinearLayout>
 
 
     </LinearLayout>
 
     <Button
-        android:id="@+id/addRoomButton"
+        android:id="@+id/submitEditUser"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

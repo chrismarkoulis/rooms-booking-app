@@ -4,10 +4,23 @@
     android:layout_height="match_parent"
    >
 
+    <Button
+        android:id="@+id/buttonEditUser"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="150dp"
+        android:background="@drawable/button_background"
+        android:drawableLeft="@drawable/ic_edit"
+        android:text="Edit Info"
+        android:textAllCaps="false"
+        android:textColor="@color/colorFormBackground" />
+
 
     <Button
         android:id="@+id/buttonLogout"
-        android:layout_width="140dp"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"

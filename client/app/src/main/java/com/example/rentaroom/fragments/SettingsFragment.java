@@ -26,7 +26,16 @@ public class SettingsFragment extends Fragment implements View.OnClickListener{
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        view.findViewById(R.id.buttonEditUser).setOnClickListener(this);
         view.findViewById(R.id.buttonLogout).setOnClickListener(this);
+    }
+
+    private void displayFragment(Fragment fragment) {
+        getParentFragmentManager()
+                .beginTransaction()
+                .replace(R.id.relativeLayoutContainer, fragment)
+                .addToBackStack(null)
+                .commit();
     }
 
     @Override
@@ -35,6 +44,8 @@ public class SettingsFragment extends Fragment implements View.OnClickListener{
 
         if (id == R.id.buttonLogout) {
             logout();
+        } else if (id == R.id.buttonEditUser) {
+            displayFragment(new EditProfileFragment());
         }
     }
 
