@@ -36,8 +36,26 @@ public class StoreManager {
             editor.putString("name", user.getName());
             editor.putString("email", user.getEmail());
             editor.putBoolean("isAdmin", user.isAdmin());
+            editor.putString("token", user.getToken());
             editor.apply();
         }
+    }
+
+    public void saveToken(String token) {
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(APP_STORE_NAME, Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        if (token != null) {
+            editor.putString("token",token);
+        }
+    }
+
+    public String getToken() {
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(APP_STORE_NAME, Context.MODE_PRIVATE);
+        String token = sharedPreferences.getString("token", null);
+
+        return token;
     }
 
     public boolean isLoggedIn() {
@@ -51,7 +69,8 @@ public class StoreManager {
                 sharedPreferences.getString("id", "-1"),
                 sharedPreferences.getString("name", null),
                 sharedPreferences.getString("email", null),
-                sharedPreferences.getBoolean("isAdmin", false)
+                sharedPreferences.getBoolean("isAdmin", false),
+                sharedPreferences.getString("token", null)
         );
     }
 

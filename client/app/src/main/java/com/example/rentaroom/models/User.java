@@ -17,11 +17,14 @@ public class User {
     @SerializedName("isAdmin")
     private boolean isAdmin;
 
-    public User(String id, String name, String email, boolean isAdmin) {
+    private final String token;
+
+    public User(String id, String name, String email, boolean isAdmin, String token) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.isAdmin = isAdmin;
+        this.token = token;
     }
 
     public String getId() {
@@ -30,6 +33,10 @@ public class User {
 
     public String getName() {
         return name;
+    }
+
+    public String getToken() {
+        return token;
     }
 
     public String getEmail() {
@@ -63,6 +70,7 @@ public class User {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
+                ", token='" + token + '\'' +
                 ", isAdmin=" + isAdmin +
                 '}';
     }

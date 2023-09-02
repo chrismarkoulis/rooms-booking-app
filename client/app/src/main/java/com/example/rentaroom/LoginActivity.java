@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.rentaroom.api.Api;
 import com.example.rentaroom.api.RetrofitClient;
 import com.example.rentaroom.models.User;
 import com.example.rentaroom.store.StoreManager;
@@ -25,6 +26,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private EditText editTextEmail;
     private EditText editTextPassword;
+
+    Api api = RetrofitClient.makeRequest(null).create(Api.class);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,8 +81,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             return;
         }
 
-        Call<User> call = RetrofitClient
-                .getInstance().getApi().userLogin(email, password);
+        Call<User> call = api.userLogin(email, password);
 
         call.enqueue(new Callback<User>() {
             @Override
@@ -92,7 +94,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             String name = userRes.getName();
                             String email = userRes.getEmail();
                             boolean isAdmin = userRes.isAdmin();
-                            User user = new User(id, name, email, isAdmin);
+                            String token = userRes.getToken();
+                            User user = new User(id, name, email, isAdmin, token);
                             Log.d("~~ USER ~~", user.toString());
                             StoreManager.getInstance(LoginActivity.this)
                                     .saveUser(user);

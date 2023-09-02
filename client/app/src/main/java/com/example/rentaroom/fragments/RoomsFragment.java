@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.rentaroom.R;
 import com.example.rentaroom.adapters.RoomsAdapter;
+import com.example.rentaroom.api.Api;
 import com.example.rentaroom.api.RetrofitClient;
 import com.example.rentaroom.models.Room;
 import com.example.rentaroom.models.RoomsResponse;
@@ -30,6 +31,8 @@ public class RoomsFragment extends Fragment {
     private RoomsAdapter roomsAdapter;
     private List<Room> roomList;
 
+    Api api = RetrofitClient.makeRequest(null).create(Api.class);
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -43,7 +46,7 @@ public class RoomsFragment extends Fragment {
         roomsRecyclerView = view.findViewById(R.id.roomRecyclerView);
         roomsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        Call<RoomsResponse> call = RetrofitClient.getInstance().getApi().getRooms();
+        Call<RoomsResponse> call = api.getRooms();
 
         call.enqueue(new Callback<RoomsResponse>() {
             @Override

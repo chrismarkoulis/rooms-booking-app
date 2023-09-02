@@ -19,7 +19,9 @@ import android.widget.Toast;
 import com.example.rentaroom.LoginActivity;
 import com.example.rentaroom.MainActivity;
 import com.example.rentaroom.R;
+import com.example.rentaroom.api.Api;
 import com.example.rentaroom.api.RetrofitClient;
+import com.example.rentaroom.store.StoreManager;
 import com.example.rentaroom.utils.Utils;
 
 import java.io.IOException;
@@ -33,6 +35,8 @@ import retrofit2.Response;
 public class AddRoomFragment extends Fragment implements View.OnClickListener {
 
     private TextView editTextName, editTextLocation, editTextDescription, editTextPrice;
+    String userToken = StoreManager.getInstance(getActivity()).getUser().getToken();
+    Api api = RetrofitClient.makeRequest(userToken).create(Api.class);
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -91,10 +95,7 @@ public class AddRoomFragment extends Fragment implements View.OnClickListener {
             return;
         }
 
-        Call<ResponseBody> call = RetrofitClient
-                .getInstance()
-                .getApi()
-                .createRoom(name, location, description, price);
+        Call<ResponseBody> call = api.createRoom(name, location, description, price);
 
         call.enqueue(new Callback<ResponseBody>() {
             @Override

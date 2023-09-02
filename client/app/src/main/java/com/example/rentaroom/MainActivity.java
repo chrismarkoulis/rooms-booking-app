@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.rentaroom.api.Api;
 import com.example.rentaroom.api.RetrofitClient;
 import com.example.rentaroom.store.StoreManager;
 import com.example.rentaroom.utils.Utils;
@@ -26,6 +27,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private EditText editTextEmail, editTextPassword, editTextName;
     private Spinner userRole;
+
+    Api api = RetrofitClient.makeRequest(null).create(Api.class);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,10 +92,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return;
         }
 
-        Call<ResponseBody> call = RetrofitClient
-                .getInstance()
-                .getApi()
-                .createUser(email, password, name, role.equals("Roomer"));
+        Call<ResponseBody> call = api.createUser(email, password, name, role.equals("Roomer"));
 
         call.enqueue(new Callback<ResponseBody>() {
             @Override
