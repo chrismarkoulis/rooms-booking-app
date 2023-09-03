@@ -5,24 +5,22 @@ import java.util.List;
 public class RoomsResponse {
 
     private List<Room> rooms;
-    private int page;
-    private int pages;
+//    private int page;
+//    private int pages;
 
-    public RoomsResponse(List<Room> rooms, int page, int pages) {
+    public RoomsResponse(List<Room> rooms) {
         this.rooms = rooms;
-        this.page = page;
-        this.pages = pages;
     }
 
     public List<Room> getRooms() {
         return rooms;
     }
 
-    public int getPage() {
-        return page;
-    }
-
-    public int getPages() {
-        return pages;
-    }
+//    public int getPage() {
+//        return page;
+//    }
+//
+//    public int getPages() {
+//        return pages;
+//    }
 }

@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.rentaroom.R;
@@ -23,6 +24,11 @@ public class RoomsAdapter extends RecyclerView.Adapter<RoomsAdapter.RoomsViewHol
     public RoomsAdapter(Context mCtx, List<Room> roomList) {
         this.mCtx = mCtx;
         this.roomList = roomList;
+    }
+
+    public void setFilteredList(List<Room> filteredList) {
+        this.roomList = filteredList;
+        notifyDataSetChanged();
     }
 
     @NonNull

@@ -16,8 +16,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.rentaroom.LoginActivity;
-import com.example.rentaroom.ProfileActivity;
 import com.example.rentaroom.R;
 import com.example.rentaroom.api.Api;
 import com.example.rentaroom.api.RetrofitClient;

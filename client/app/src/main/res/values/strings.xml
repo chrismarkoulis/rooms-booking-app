@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">rentaroom</string>
+    <string name="search">Search rooms…</string>
 
     <string-array name="dropDownItems">
         <item>Tenant</item>

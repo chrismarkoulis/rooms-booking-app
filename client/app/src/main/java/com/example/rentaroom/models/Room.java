@@ -19,12 +19,20 @@ public class Room {
     @SerializedName("price")
     private int price;
 
-    public Room(String id, String name, String location, String description, int price) {
+    @SerializedName("user")
+    private String userId;
+
+    @SerializedName("userObject")
+    private User owner;
+
+    public Room(String id, String name, String location, String description, int price, String userId, User owner) {
         this.id = id;
         this.name = name;
         this.location = location;
         this.description = description;
         this.price = price;
+        this.userId = userId;
+        this.owner = owner;
     }
 
     public String getId() {
@@ -45,5 +53,13 @@ public class Room {
 
     public int getPrice() {
         return price;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public User getOwner() {
+        return owner;
     }
 }

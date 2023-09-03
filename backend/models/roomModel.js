@@ -1,4 +1,6 @@
 import mongoose from 'mongoose';
+import User from '../models/userModel.js'
+
 
 const reviewSchema = mongoose.Schema(
     {
@@ -22,6 +24,10 @@ const roomSchema = mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             required: true,
             ref: 'User',
+        },
+        userObject: {
+            type: Object,
+            required: false
         },
         name: {
             type: String,

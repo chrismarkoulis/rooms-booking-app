@@ -1,5 +1,6 @@
 import asyncHandler from 'express-async-handler';
 import Room from '../models/roomModel.js';
+import User from '../models/userModel.js'
 
 // @desc    Fetch all rooms
 // @route   GET /api/rooms
@@ -19,10 +20,14 @@ const getRooms = asyncHandler(async (req, res) => {
 
   const count = await Room.countDocuments({ ...keyword });
   const rooms = await Room.find({ ...keyword })
-    .limit(pageSize)
-    .skip(pageSize * (page - 1));
+    .limit(50);
 
-  res.json({ rooms, page, pages: Math.ceil(count / pageSize) });
+  /**
+   * TODO: PAGINATION FOR CLIENT
+   */
+  //res.json({ rooms, page, pages: Math.ceil(count / pageSize) });
+
+  res.json({ rooms });
 });
 
 // @desc    Fetch single room
@@ -65,6 +70,8 @@ const createRoom = asyncHandler(async (req, res) => {
   const { name, location, description, price } = req.body;
 
   const roomExists = await Room.findOne({ name });
+  const userObject = await User.findById(req.user._id)
+  console.log("USERRR: ", userObject);
   
     if (roomExists) {
       res.status(400);
@@ -73,6 +80,7 @@ const createRoom = asyncHandler(async (req, res) => {
 
   const room = await Room.create({
     user: req.user._id,
+    userObject, 
     name,
     location,
     description,
