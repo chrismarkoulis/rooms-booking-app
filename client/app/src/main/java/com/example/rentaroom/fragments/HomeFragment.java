@@ -40,7 +40,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         textViewName.setText(String.format("Welcome %s", StoreManager.getInstance(getActivity()).getUser().getName()));
         textViewEmail.setText(StoreManager.getInstance(getActivity()).getUser().getEmail());
-        textViewIsAdmin.setText(isAdmin ? "Roomer" : "Guest");
+        textViewIsAdmin.setText(isAdmin ? "Host" : "Tenant");
         textViewInfo.setText(isAdmin ? "You have no rooms yet." : "Feel free to browse our available rooms!");
         addRoomButton.setVisibility(isAdmin ? View.VISIBLE : View.INVISIBLE);
     }

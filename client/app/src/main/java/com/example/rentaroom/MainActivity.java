@@ -26,8 +26,6 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private EditText editTextEmail, editTextPassword, editTextName;
-    private Spinner userRole;
-
     Api api = RetrofitClient.makeRequest(null).create(Api.class);
 
     @Override
@@ -38,7 +36,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editTextEmail = findViewById(R.id.editTextEmail);
         editTextPassword = findViewById(R.id.editTextPassword);
         editTextName = findViewById(R.id.editTextName);
-        userRole = findViewById(R.id.roleDropdown);
 
         findViewById(R.id.buttonSignUp).setOnClickListener(this);
         findViewById(R.id.textViewLogin).setOnClickListener(this);
@@ -58,9 +55,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
         String name = editTextName.getText().toString().trim();
-
-        Spinner roleSpinner = (Spinner) findViewById(R.id.roleDropdown);
-        String role = roleSpinner.getSelectedItem().toString();
 
         if (email.isEmpty()) {
             editTextEmail.setError("Email is required");
@@ -92,7 +86,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return;
         }
 
-        Call<ResponseBody> call = api.createUser(email, password, name, role.equals("Roomer"));
+        Call<ResponseBody> call = api.createUser(email, password, name);
 
         call.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -102,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     if (response.code() == 201) {
                         s = response.body().toString();
                         Log.d("~~ USER ~~", s);
-                        Toast.makeText(MainActivity.this, String.format("%s user created successfully", role), Toast.LENGTH_LONG).show();
+                        Toast.makeText(MainActivity.this, String.format("Hooray! Welcome to Rooms Rental"), Toast.LENGTH_LONG).show();
                     } else {
                         s = response.errorBody().string();
                         Toast.makeText(MainActivity.this, Utils.s_json(s, "message"), Toast.LENGTH_LONG).show();

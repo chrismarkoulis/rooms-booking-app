@@ -68,39 +68,6 @@
             android:hint="password"
             android:inputType="textPassword" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="6dp"
-            android:layout_marginBottom="7dp"
-            android:textColor="@color/colorPrimaryBackground"
-            android:text="Choose your role"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            android:orientation="horizontal">
-
-               <ImageView
-                    android:layout_marginLeft="4dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_role"
-                />
-
-               <Spinner
-                   android:id="@+id/roleDropdown"
-                   android:layout_width="160dp"
-                   android:layout_height="wrap_content"
-                   android:drawSelectorOnTop="true"
-                   android:entries="@array/dropDownItems"
-                   />
-
-        </LinearLayout>
-
-
     </LinearLayout>
 
     <TextView

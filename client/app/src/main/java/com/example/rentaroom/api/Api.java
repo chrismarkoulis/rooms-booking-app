@@ -20,8 +20,7 @@ public interface Api {
     Call<ResponseBody> createUser(
             @Field("email") String email,
             @Field("password") String password,
-            @Field("name") String name,
-            @Field("isAdmin") boolean isAdmin
+            @Field("name") String name
     );
 
     @FormUrlEncoded
@@ -34,7 +33,7 @@ public interface Api {
     @FormUrlEncoded
     @PUT("users/{id}")
     Call<User> updateUser(
-            @Path("id") int id,
+            @Path("id") String id,
             @Field("name") String name,
             @Field("email") String email,
             @Field("isAdmin") boolean isAdmin
