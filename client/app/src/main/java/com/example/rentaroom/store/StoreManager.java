@@ -7,8 +7,15 @@ import android.widget.Toast;
 
 import com.example.rentaroom.LoginActivity;
 import com.example.rentaroom.MainActivity;
+import com.example.rentaroom.models.Owner;
+import com.example.rentaroom.models.Room;
 import com.example.rentaroom.models.User;
 import com.example.rentaroom.utils.Utils;
+import com.google.gson.Gson;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class StoreManager {
     private static final String APP_STORE_NAME = "room_rental_store";
@@ -43,12 +50,62 @@ public class StoreManager {
 
     public void saveToken(String token) {
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(APP_STORE_NAME, Context.MODE_PRIVATE);
-
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
         if (token != null) {
             editor.putString("token",token);
+            editor.apply();
         }
+    }
+
+    public void setCurrentRoom(Room room, Owner owner) {
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(APP_STORE_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        Gson gson = new Gson();
+        String ownerJson = gson.toJson(owner);
+
+        if (room != null) {
+            editor.putString("room_id", room.getId());
+            editor.putString("room_name", room.getName());
+            editor.putString("room_location", room.getLocation());
+            editor.putString("room_description", room.getDescription());
+            editor.putInt("room_price", room.getPrice());
+            editor.putString("room_userId", room.getUserId());
+            editor.putString("room_owner", ownerJson);
+            editor.apply();
+        }
+    }
+
+    public Room getCurrentRoom() {
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(APP_STORE_NAME, Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String ownerJson = sharedPreferences.getString("room_owner", null);
+        Owner ownerObj = gson.fromJson(ownerJson, Owner.class);
+
+        return new Room(
+                sharedPreferences.getString("room_id", "-1"),
+                sharedPreferences.getString("room_name", null),
+                sharedPreferences.getString("room_location", null),
+                sharedPreferences.getString("room_description", null),
+                sharedPreferences.getInt("room_price", 0),
+                sharedPreferences.getString("room_userId", null),
+                ownerObj
+        );
+    }
+
+    public Object[] getRoomInfo() {
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(APP_STORE_NAME, Context.MODE_PRIVATE);
+        Object[] info = {
+                sharedPreferences.getString("room_id", "-1"),
+                sharedPreferences.getString("room_name", null),
+                sharedPreferences.getString("room_location", null),
+                sharedPreferences.getString("room_description", null),
+                sharedPreferences.getInt("room_price", 0),
+                sharedPreferences.getString("room_ownerName", null),
+                sharedPreferences.getString("room_ownerEmail", null)
+        };
+        return info;
     }
 
     public String getToken() {

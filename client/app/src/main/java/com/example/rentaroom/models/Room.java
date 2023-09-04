@@ -2,7 +2,9 @@ package com.example.rentaroom.models;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Room {
+import java.io.Serializable;
+
+public class Room implements Serializable {
 
     @SerializedName("_id")
     private String id;
@@ -23,9 +25,17 @@ public class Room {
     private String userId;
 
     @SerializedName("userObject")
-    private User owner;
+    private Owner owner;
 
-    public Room(String id, String name, String location, String description, int price, String userId, User owner) {
+
+    public Room(
+            String id,
+            String name,
+            String location,
+            String description,
+            int price,
+            String userId,
+            Owner owner) {
         this.id = id;
         this.name = name;
         this.location = location;
@@ -59,7 +69,20 @@ public class Room {
         return userId;
     }
 
-    public User getOwner() {
+    public Owner getOwner() {
         return owner;
+    }
+
+    @Override
+    public String toString() {
+        return "Room{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", location='" + location + '\'' +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                ", userId='" + userId + '\'' +
+                ", owner=" + owner +
+                '}';
     }
 }

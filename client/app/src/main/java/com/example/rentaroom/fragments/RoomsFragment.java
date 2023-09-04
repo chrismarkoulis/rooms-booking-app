@@ -1,5 +1,6 @@
 package com.example.rentaroom.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,6 +19,8 @@ import com.example.rentaroom.R;
 import com.example.rentaroom.adapters.RoomsAdapter;
 import com.example.rentaroom.api.Api;
 import com.example.rentaroom.api.RetrofitClient;
+import com.example.rentaroom.interfaces.RoomsRecyclerViewInterface;
+import com.example.rentaroom.models.Owner;
 import com.example.rentaroom.models.Room;
 import com.example.rentaroom.models.RoomsResponse;
 import com.example.rentaroom.models.User;
@@ -33,11 +36,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RoomsFragment extends Fragment {
+public class RoomsFragment extends Fragment implements RoomsRecyclerViewInterface {
 
     private RecyclerView roomsRecyclerView;
     private RoomsAdapter roomsAdapter;
-    private List<Room> roomList;
+    private List<Room> roomList = new ArrayList<>();
     private TextView userRoomsTitle;
     private SearchView roomsSearchView;
 
@@ -77,6 +80,8 @@ public class RoomsFragment extends Fragment {
             }
         });
 
+        RoomsRecyclerViewInterface rc_interface = this;
+
 
         Call<RoomsResponse> call = api.getRooms();
 
@@ -88,8 +93,8 @@ public class RoomsFragment extends Fragment {
                                                 .filter(room -> Objects.equals(room.getUserId(), userId))
                                                 .collect(Collectors.toList());
 
-                roomList = isAdmin ? hostRooms: allRooms;
-                roomsAdapter = new RoomsAdapter(getActivity(), roomList);
+                roomList = isAdmin ? hostRooms : allRooms;
+                roomsAdapter = new RoomsAdapter((Context) getActivity(), roomList, rc_interface);
                 roomsRecyclerView.setAdapter(roomsAdapter);
             }
 
@@ -117,5 +122,30 @@ public class RoomsFragment extends Fragment {
         }
     }
 
+    private void displayFragment(Fragment fragment) {
+        getParentFragmentManager()
+                .beginTransaction()
+                .replace(R.id.relativeLayoutContainer, fragment)
+                .addToBackStack(null)
+                .commit();
+    }
 
+
+    @Override
+    public void onItemClick(int position) {
+        Room room = new Room(
+                roomList.get(position).getId(),
+                roomList.get(position).getName(),
+                roomList.get(position).getLocation(),
+                roomList.get(position).getDescription(),
+                roomList.get(position).getPrice(),
+                roomList.get(position).getUserId(),
+                roomList.get(position).getOwner()
+        );
+
+        Owner owner = room.getOwner();
+        StoreManager.getInstance(getActivity()).setCurrentRoom(room, owner);
+
+        displayFragment(new SelectedRoomFragment());
+    }
 }
