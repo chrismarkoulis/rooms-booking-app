@@ -27,6 +27,8 @@ public class SelectedRoomFragment extends Fragment implements View.OnClickListen
     private EditText editTextName, editTextLocation, editTextDescription,
                      editTextPrice, editTextOwnerName, editTextOwnerEmail;
 
+    private TextView header;
+
     Room room = StoreManager.getInstance(getActivity()).getCurrentRoom();
     boolean isAdmin = StoreManager.getInstance(getActivity()).getUser().isAdmin();
 
@@ -40,8 +42,10 @@ public class SelectedRoomFragment extends Fragment implements View.OnClickListen
         editTextPrice = view.findViewById(R.id.editTextPrice);
         editTextOwnerName = view.findViewById(R.id.editTextOwnerName);
         editTextOwnerEmail = view.findViewById(R.id.editTextOwnerEmail);
+        header = view.findViewById(R.id.selected_room_header);
 
         if (!isAdmin) {
+            header.setText("Book this room");
             disableInput(editTextName);
             disableInput(editTextLocation);
             disableInput(editTextDescription);
@@ -49,6 +53,7 @@ public class SelectedRoomFragment extends Fragment implements View.OnClickListen
             disableInput(editTextOwnerName);
             disableInput(editTextOwnerEmail);
         }
+
 
         editTextName.setText(room.getName());
         editTextLocation.setText(room.getLocation());

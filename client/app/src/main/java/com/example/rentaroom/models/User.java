@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class User {
     @SerializedName("_id")
     private String id;
@@ -16,6 +18,9 @@ public class User {
 
     @SerializedName("isAdmin")
     private boolean isAdmin;
+
+    @SerializedName("bookings")
+    private List<Room> bookings;
 
     private final String token;
 
@@ -63,15 +68,19 @@ public class User {
         isAdmin = admin;
     }
 
-    @NonNull
+    public List<Room> getBookings() {
+        return bookings;
+    }
+
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
+                "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
-                ", token='" + token + '\'' +
                 ", isAdmin=" + isAdmin +
+                ", bookings=" + bookings +
+                ", token='" + token + '\'' +
                 '}';
     }
 }

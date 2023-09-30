@@ -1,6 +1,8 @@
-import asyncHandler from 'express-async-handler'
-import generateToken from '../utils/generateToken.js'
-import User from '../models/userModel.js'
+import asyncHandler from 'express-async-handler';
+import generateToken from '../utils/generateToken.js';
+import User from '../models/userModel.js';
+import Room from '../models/roomModel.js';
+
 
 // @desc    Auth user & get token
 // @route   POST /api/users/auth
@@ -166,6 +168,47 @@ const updateUser = asyncHandler(async (req, res) => {
   }
 })
 
+// @desc    user's booking
+// @route   PATCH /api/users/:id
+// @access  Private/Admin
+const userBooking = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id);
+  const room = await Room.findById(req.body.room_id);
+  // user.bookings = [];
+
+  //-- Should refactor with Array.some()
+  const bookedRoom = user.bookings.find(b => 
+    b._id.toHexString() === req.body.room_id
+  );
+
+  const isBooked = bookedRoom != null && bookedRoom._id.toHexString() === req.body.room_id;
+  
+  console.log("IS BOOKED: ", isBooked);
+
+  if (isBooked) {
+    res.status(400)
+    throw new Error('You already booked this room')
+  }
+
+  if (user && !isBooked) {
+    if (room != null) {
+      let temp = [];
+      temp.push(room);
+      user.bookings = [...user.bookings, ...temp];
+    }
+
+    const userWithBooking = await user.save()
+
+    res.status(200).json({
+      _id: userWithBooking._id,
+      bookings: userWithBooking.bookings
+    })
+  } else {
+    res.status(404)
+    throw new Error('User not found')
+  }
+})
+
 export {
   authUser,
   registerUser,
@@ -175,4 +218,5 @@ export {
   deleteUser,
   getUserById,
   updateUser,
+  userBooking
 }

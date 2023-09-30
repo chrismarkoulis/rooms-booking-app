@@ -71,7 +71,6 @@ const createRoom = asyncHandler(async (req, res) => {
 
   const roomExists = await Room.findOne({ name });
   const userObject = await User.findById(req.user._id)
-  console.log("USERRR: ", userObject);
   
     if (roomExists) {
       res.status(400);

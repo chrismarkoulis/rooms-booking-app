@@ -20,7 +20,11 @@ const userSchema = mongoose.Schema(
             type: Boolean,
             required: true,
             default: false,
-        }
+        },
+        bookings: {
+            type: Array,
+            default: []
+          }    
     },
     {
         timestamps: true,
