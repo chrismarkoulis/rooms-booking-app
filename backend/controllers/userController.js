@@ -131,7 +131,7 @@ const deleteUser = asyncHandler(async (req, res) => {
 
 // @desc    Get user by ID
 // @route   GET /api/users/:id
-// @access  Private/Admin
+// @access  Private
 const getUserById = asyncHandler(async (req, res) => {
   const user = await User.findById(req.params.id).select('-password')
 

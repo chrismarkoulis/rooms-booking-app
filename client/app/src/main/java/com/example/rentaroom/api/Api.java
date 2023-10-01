@@ -43,9 +43,14 @@ public interface Api {
 
     @FormUrlEncoded
     @PATCH("users/{id}")
-    Call<User> userBooking(
+    Call<ResponseBody> userBooking(
             @Path("id") String id,
-            @Field("bookings") List<Room> rooms
+            @Field("room_id") String room_id
+    );
+
+    @GET("users/{id}")
+    Call<User> getUser(
+            @Path("id") String id
     );
 
     @GET("rooms")
