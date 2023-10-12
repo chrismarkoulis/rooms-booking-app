@@ -183,8 +183,6 @@ const userBooking = asyncHandler(async (req, res) => {
 
   const isBooked = bookedRoom != null && bookedRoom._id.toHexString() === req.body.room_id;
   
-  console.log("IS BOOKED: ", isBooked);
-
   if (isBooked) {
     res.status(400)
     throw new Error('You already booked this room')
